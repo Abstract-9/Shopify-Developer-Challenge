@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
 
-  resources :shops, :products, :orders
-  resources :LineItems, controller: 'items'
+  resources :shops do
+    resources :products, :orders do
+      resources :LineItems, controller: 'items'
+    end
+  end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

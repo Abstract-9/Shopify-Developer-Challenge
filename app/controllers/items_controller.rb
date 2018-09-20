@@ -7,9 +7,9 @@ class ItemsController < ApplicationController
   end
 
   def create
-    @item = LineItem.new(item_params)
-
-    @item.save!
+    product = Product.find(params[:product_id])
+    item = product.line_items.create(item_params)
+    render json: item
   end
 
   def index
