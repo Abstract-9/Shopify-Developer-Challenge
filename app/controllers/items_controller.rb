@@ -1,20 +1,20 @@
-require 'json'
-
 class ItemsController < ApplicationController
+
+  skip_before_action :verify_authenticity_token
 
   def new
     @item = LineItem.new
   end
 
   def create
-    @item = LineItem.new JSON.parse item_params
+    @item = LineItem.new item_params
 
     @item.save
-    redirect_to JSON.generate @item
+    render json: @item
   end
 
   def index
-    LineItem.all
+    render json: LineItem.all
   end
 
   def show
@@ -24,7 +24,7 @@ class ItemsController < ApplicationController
   private
 
   def item_params
-    params.require(:line_item).permit(:name, :value, :itemId)
+    params.require(:item).permit(:name, :value)
   end
 
 
