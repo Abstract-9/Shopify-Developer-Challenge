@@ -7,10 +7,9 @@ class ItemsController < ApplicationController
   end
 
   def create
-    @item = LineItem.new item_params
+    @item = LineItem.new(item_params)
 
-    @item.save
-    render json: @item
+    @item.save!
   end
 
   def index
@@ -24,7 +23,7 @@ class ItemsController < ApplicationController
   private
 
   def item_params
-    params.require(:item).permit(:name, :value)
+    params.require(:item).permit(:name, :value, :product)
   end
 
 
