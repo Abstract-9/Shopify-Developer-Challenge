@@ -1,5 +1,7 @@
 class OrdersController < ApplicationController
 
+  skip_before_action :verify_authenticity_token
+
   def create
     shop = Shop.find(params[:shop_id])
 
@@ -25,8 +27,6 @@ class OrdersController < ApplicationController
       render plain: false
     end
   end
-
-
 
 
   private
