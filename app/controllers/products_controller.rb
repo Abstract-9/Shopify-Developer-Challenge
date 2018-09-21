@@ -3,9 +3,9 @@ class ProductsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def create
-    product = Product.new(product_params)
+    shop = Shop.find(params[:shop_id])
+    product = shop.products.create(product_params)
 
-    product.save!
     render json: product
   end
 
@@ -33,14 +33,9 @@ class ProductsController < ApplicationController
     redirect_to index
   end
 
-
-
-
-
-
   private
 
   def product_params
-    params.require(:product).permit(:name, :value)
+    params.require(:product).permit(:name, :shop)
   end
 end
