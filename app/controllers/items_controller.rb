@@ -2,10 +2,6 @@ class ItemsController < ApplicationController
 
   skip_before_action :verify_authenticity_token
 
-  def new
-    @item = LineItem.new
-  end
-
   def create
     product = Product.find(params[:product_id])
     item = product.line_items.create(item_params)

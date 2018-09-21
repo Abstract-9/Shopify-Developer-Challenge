@@ -4,8 +4,11 @@ class OrdersController < ApplicationController
 
   def create
     shop = Shop.find(params[:shop_id])
-
     order = shop.orders.create(order_params)
+
+    if params[:product_id] and Product.find(params[:product_id])
+      order.products.push Product.find(params[:product_id])
+    end
 
     render json: order
   end
@@ -28,10 +31,15 @@ class OrdersController < ApplicationController
     end
   end
 
+  def get_items
+    order = Order.find(params[:id])
+    render json: order.line_items
+  end
+
 
   private
 
   def order_params
-    params.require(:order).require(:shop)
+    params.permit(:order)
   end
 end
